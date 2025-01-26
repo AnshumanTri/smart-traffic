@@ -1,11 +1,4 @@
-# LAG
-# NO. OF VEHICLES IN SIGNAL CLASS
-# stops not used
-# DISTRIBUTION
-# BUS TOUCHING ON TURNS
-# Distribution using python class
 
-# *** IMAGE XY COOD IS TOP LEFT
 import random
 import math
 import time
@@ -15,13 +8,6 @@ import pygame
 import sys
 import os
 
-# options={
-#    'model':'./cfg/yolo.cfg',     #specifying the path of model
-#    'load':'./bin/yolov2.weights',   #weights
-#    'threshold':0.3     #minimum confidence factor to create a box, greater than 0.3 good
-# }
-
-# tfnet=TFNet(options)    #READ ABOUT TFNET
 
 # Default values of signal times
 defaultRed = 150
@@ -175,10 +161,7 @@ class Vehicle(pygame.sprite.Sprite):
                         self.y += 1.8
                         if(self.rotateAngle==90):
                             self.turned = 1
-                            # path = "images/" + directionNumbers[((self.direction_number+1)%noOfSignals)] + "/" + self.vehicleClass + ".png"
-                            # self.x = mid[self.direction]['x']
-                            # self.y = mid[self.direction]['y']
-                            # self.image = pygame.image.load(path)
+                       
                     else:
                         if(self.index==0 or self.y+self.currentImage.get_rect().height<(vehicles[self.direction][self.lane][self.index-1].y - gap2) or self.x+self.currentImage.get_rect().width<(vehicles[self.direction][self.lane][self.index-1].x - gap2)):
                             self.y += self.speed
@@ -281,15 +264,7 @@ def setTime():
     global noOfCars, noOfBikes, noOfBuses, noOfTrucks, noOfRickshaws, noOfLanes
     global carTime, busTime, truckTime, rickshawTime, bikeTime
     os.system("say detecting vehicles, "+directionNumbers[(currentGreen+1)%noOfSignals])
-#    detection_result=detection(currentGreen,tfnet)
-#    greenTime = math.ceil(((noOfCars*carTime) + (noOfRickshaws*rickshawTime) + (noOfBuses*busTime) + (noOfBikes*bikeTime))/(noOfLanes+1))
-#    if(greenTime<defaultMinimum):
-#       greenTime = defaultMinimum
-#    elif(greenTime>defaultMaximum):
-#       greenTime = defaultMaximum
-    # greenTime = len(vehicles[currentGreen][0])+len(vehicles[currentGreen][1])+len(vehicles[currentGreen][2])
-    # noOfVehicles = len(vehicles[directionNumbers[nextGreen]][1])+len(vehicles[directionNumbers[nextGreen]][2])-vehicles[directionNumbers[nextGreen]]['crossed']
-    # print("no. of vehicles = ",noOfVehicles)
+
     noOfCars, noOfBuses, noOfTrucks, noOfRickshaws, noOfBikes = 0,0,0,0,0
     for j in range(len(vehicles[directionNumbers[nextGreen]][0])):
         vehicle = vehicles[directionNumbers[nextGreen]][0][j]
@@ -353,7 +328,7 @@ def repeat():
        
     currentGreen = nextGreen # set next signal as green signal
     nextGreen = (currentGreen+1)%noOfSignals    # set next green signal
-    signals[nextGreen].red = signals[currentGreen].yellow+signals[currentGreen].green    # set the red time of next to next signal as (yellow time + green time) of next signal
+    signals[nextGreen].red = signals[currentGreen].yellow+signals[currentGreen].green   
     repeat()     
 
 # Print the signal timers on cmd
